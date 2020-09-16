@@ -14,6 +14,7 @@ from django.contrib import messages
 from django.db.models import Q
 from itertools import chain
 
+
 class OpeningDetail(LoginRequiredMixin, DetailView):
     model = Opening
     # success_url = '/openings/'
@@ -28,10 +29,11 @@ class OpeningDetail(LoginRequiredMixin, DetailView):
         user = self.get_object().user
         self.request.session["user_id"] = user.id
         self.request.session["opening_id"] = self.get_object().id
-        obj = get_object_or_404(Student,user=user)
+        obj = get_object_or_404(Student, user=user)
         # context["industry"] =  obj.industry_type.all()
         # context["logo"] =  obj.image
-        context["tags"] = TagOpening.objects.filter(opening=self.get_object(), active=True)
+        context["tags"] = TagOpening.objects.filter(
+            opening=self.get_object(), active=True)
 
         opening_id = self.get_object().id
 
@@ -40,21 +42,20 @@ class OpeningDetail(LoginRequiredMixin, DetailView):
         try:
             test = self.request.user.teacher
             if objo.user.id != self.request.user.id:
-                #update the number of views
-                objw = get_object_or_404(Teacher,user=self.request.user)
+                # update the number of views
+                objw = get_object_or_404(Teacher, user=self.request.user)
                 obj = ViewOpening.objects.get_or_create(opening_id=objo.id)[0]
                 obj.teacher.add(objw.id)
                 obj.save()
-            #is it favorited by current user?
+            # is it favorited by current user?
             context["Submit"] = "Favorite"
-            if FavOpening.objects.filter(opening_id = objo.id).first() != None:
-                if FavOpening.objects.filter(opening_id = objo.id).first().teacher.filter(id=objw.id).first() != None:
+            if FavOpening.objects.filter(opening_id=objo.id).first() != None:
+                if FavOpening.objects.filter(opening_id=objo.id).first().teacher.filter(id=objw.id).first() != None:
                     context["Submit"] = "Unfavorite"
         except:
             pass
 
         return context
-
 
 
 class OpeningCreate(LoginRequiredMixin, FormView):
@@ -65,7 +66,6 @@ class OpeningCreate(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         user = self.request.user
         obj_comp = Student.objects.filter(user=user).first()
-
         i = form.save(commit=False)
         i.user = user
         i.hiring_student = obj_comp
@@ -83,7 +83,8 @@ class OpeningCreate(LoginRequiredMixin, FormView):
         return redirect("OpeningDetail", pk=pk)
 
 
-class OpeningUpdate(UserChangeManagerMixin,UpdateView): #if user is request user or staff can change
+# if user is request user or staff can change
+class OpeningUpdate(UserChangeManagerMixin, UpdateView):
     model = Opening
     form_class = OpeningForm
     # fields = ['name']
@@ -101,7 +102,6 @@ class OpeningUpdate(UserChangeManagerMixin,UpdateView): #if user is request user
         return valid_data
 
 
-
 class OpeningList(ListView, FormView):
     model = Opening
     form_class = SearchOpeningForm
@@ -116,13 +116,17 @@ class OpeningList(ListView, FormView):
             for key in self.request.GET:
                 try:
                     if key == "region_1":
-                        self.initial[key] = self.request.GET.getlist('region_1')
+                        self.initial[key] = self.request.GET.getlist(
+                            'region_1')
                     elif key == "region_2":
-                        self.initial[key] = self.request.GET.getlist('region_2')
+                        self.initial[key] = self.request.GET.getlist(
+                            'region_2')
                     elif key == "region_3":
-                        self.initial[key] = self.request.GET.getlist('region_3')
+                        self.initial[key] = self.request.GET.getlist(
+                            'region_3')
                     elif key == "region_4":
-                        self.initial[key] = self.request.GET.getlist('region_4')
+                        self.initial[key] = self.request.GET.getlist(
+                            'region_4')
 
                     elif key == "submit":
                         pass
@@ -132,9 +136,9 @@ class OpeningList(ListView, FormView):
                     pass
             return self.initial.copy()
 
-
     def get_queryset(self, *args, **kwargs):
-        qs = super(OpeningList, self).get_queryset(**kwargs).filter(job_active=True, private=False).order_by('-date_modified')
+        qs = super(OpeningList, self).get_queryset(
+            **kwargs).filter(job_active=True, private=False).order_by('-date_modified')
 
         subject_1 = self.request.GET.get("subject_1")
         subject_2 = self.request.GET.get("subject_2")
@@ -152,7 +156,6 @@ class OpeningList(ListView, FormView):
         group_tuition = self.request.GET.get("group_tuition")
         search = self.request.GET.get("search")
 
-        
         if subject_1:
             subject = subject_1
         elif subject_2:
@@ -175,24 +178,23 @@ class OpeningList(ListView, FormView):
         #     if level_type == "University":
         #         level = ("14","15","16","17")
 
-
         title = None
         if level_type:
             if level_type == "Lower Primary":
-                title = ("Primary 1","Primary 2","Primary 3")
+                title = ("Primary 1", "Primary 2", "Primary 3")
             if level_type == "Higher Primary":
-                title = ("Primary 4","Primary 5","Primary 6")
+                title = ("Primary 4", "Primary 5", "Primary 6")
             if level_type == "Lower Secondary":
-                title = ("Secondary 1","Secondary 2")
+                title = ("Secondary 1", "Secondary 2")
             if level_type == "Higher Secondary":
-                title = ("Secondary 3","Secondary 4")
+                title = ("Secondary 3", "Secondary 4")
             if level_type == "Junior College":
-                title = ("Junior College 1","Junior College 2")
+                title = ("Junior College 1", "Junior College 2")
             if level_type == "University":
-                title = ("University 1","University 2","University 3","University 4")
+                title = ("University 1", "University 2",
+                         "University 3", "University 4")
             if level_type == "NA":
-                title = ("NA","NA")
-
+                title = ("NA", "NA")
 
         try:
 
@@ -220,7 +222,7 @@ class OpeningList(ListView, FormView):
                 qs = qs.filter(
                     Q(description__icontains=search) |
                     Q(title__icontains=search)
-                    ).distinct()
+                ).distinct()
 
             qs = qs.order_by('-date_modified')
 
@@ -230,10 +232,7 @@ class OpeningList(ListView, FormView):
         return qs
 
 
-
-
-
-#this is the list of openings for one specific student that belongs to the request user
+# this is the list of openings for one specific student that belongs to the request user
 class POpeningList(ListView):
     model = Opening
     template_name = 'opening/p_list.html'
@@ -241,13 +240,14 @@ class POpeningList(ListView):
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
-        qs = super(POpeningList, self).get_queryset(**kwargs).filter(user=user, job_active=True).order_by('-id')
+        qs = super(POpeningList, self).get_queryset(
+            **kwargs).filter(user=user, job_active=True).order_by('-id')
         return qs
 
     def get_context_data(self, *args, **kwargs):
         context = super(POpeningList, self).get_context_data(*args, **kwargs)
         context["listtype"] = "active"
-        return context   
+        return context
 
 
 class POpeningListInactive(ListView):
@@ -257,20 +257,21 @@ class POpeningListInactive(ListView):
 
     def get_queryset(self, *args, **kwargs):
         user = self.request.user
-        qs = super(POpeningListInactive, self).get_queryset(**kwargs).filter(user=user, job_active=False).order_by('-id')
+        qs = super(POpeningListInactive, self).get_queryset(
+            **kwargs).filter(user=user, job_active=False).order_by('-id')
         return qs
 
     def get_context_data(self, *args, **kwargs):
-        context = super(POpeningListInactive, self).get_context_data(*args, **kwargs)
+        context = super(POpeningListInactive,
+                        self).get_context_data(*args, **kwargs)
         context["listtype"] = "inactive"
-        return context   
+        return context
 
 
 class FavOpeningList(ListView):
     model = Opening
     template_name = 'opening/fav_list.html'
     paginate_by = 10
-
 
     def get_queryset(self, *args, **kwargs):
 
@@ -279,13 +280,7 @@ class FavOpeningList(ListView):
         except:
             test = self.request.user.teacher.favopening_set.all()
 
-        qs = super(FavOpeningList, self).get_queryset(**kwargs).filter(favopening__in=test,job_active=True).order_by('id')
+        qs = super(FavOpeningList, self).get_queryset(
+            **kwargs).filter(favopening__in=test, job_active=True).order_by('id')
 
         return qs
-
-
-
-
-
-
-

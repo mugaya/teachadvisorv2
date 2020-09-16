@@ -91,6 +91,7 @@ class HomeView(TemplateView):
 				usercred = usercred_obj.credit
 				context["credits"] = usercred
 
+
 				# #retrieve when the user has subcription for document
 				# imgsub = get_object_or_404(ImageSubscription, user=user)
 				# imgsubenddate = imgsub.subenddate
@@ -197,7 +198,6 @@ class HomeView(TemplateView):
 					context["fav_teacher"] = fav_teacher
 
 			else:
-
 				pass
 				
 

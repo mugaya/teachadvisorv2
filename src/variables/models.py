@@ -10,49 +10,48 @@ class Subject_Expertise(models.Model):
 	description = models.TextField(null=True, blank=True)
 	active = models.BooleanField(default=True)
 
-	def __str__(self):
-		return str(self.title)
-
+	def __unicode__(self):
+		return self.title
 
 class Level_Expertise(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	description = models.TextField(null=True, blank=True)
 	active = models.BooleanField(default=True)
 
-	def __str__(self):
-		return str(self.title)
+	def __unicode__(self):
+		return self.title
 
 class Educational_Level(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	description = models.TextField(null=True, blank=True)
 	active = models.BooleanField(default=True)
 
-	def __str__(self):
-		return str(self.title)
+	def __unicode__(self):
+		return self.title
 
 class Education(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	description = models.TextField(null=True, blank=True)
 	active = models.BooleanField(default=True)
 
-	def __str__(self):
-		return str(self.title)
+	def __unicode__(self):
+		return self.title
 
 class Education_School(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	description = models.TextField(null=True, blank=True)
 	active = models.BooleanField(default=True)
 
-	def __str__(self):
-		return str(self.title)
+	def __unicode__(self):
+		return self.title
 
 class Expertise_Type(models.Model):
 	title = models.CharField(max_length=50, unique=True)
 	description = models.TextField(null=True, blank=True)
 	active = models.BooleanField(default=True)
 
-	def __str__(self):
-		return str(self.title)
+	def __unicode__(self):
+		return self.title
 
 
 class Region(models.Model):
@@ -60,8 +59,8 @@ class Region(models.Model):
 	description = models.TextField(null=True, blank=True)
 	active = models.BooleanField(default=True)
 
-	def __str__(self):
-		return str(self.title)
+	def __unicode__(self):
+		return self.title
 
 
 class Country(models.Model):
@@ -69,7 +68,7 @@ class Country(models.Model):
 	description = models.TextField(null=True, blank=True)
 	active = models.BooleanField(default=True)
 
-	def __str__(self):
-		return str(self.title)
+	def __unicode__(self):
+		return self.title
 
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.generic import TemplateView, View, FormView
 from tags.models import ViewTeacherRecord, SearchWordTeacherRecord

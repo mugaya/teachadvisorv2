@@ -28,21 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 TYPE = "base"
 
 # using gmail
@@ -52,10 +37,6 @@ EMAIL_MAIN = "Balancedtechsgp"
 EMAIL_HOST_PASSWORD = "fakeready24"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-
-
-
 
 # Application definition
 
@@ -67,17 +48,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-
-#necessary for django allauth
+    # necessary for django allauth
     'django.contrib.sites',
-#necessary for django ses
+    # necessary for django ses
     'django_ses',
     'pagedown',
-
-#installed apps
+    # installed apps
     'crispy_forms',
     'django_cleanup',
-
     'home',
     'blog',
     'examdownload',
@@ -93,24 +71,21 @@ INSTALLED_APPS = [
     'tags',
     'notifications',
 
-
-#necessary for django allauth
-
+    # necessary for django allauth
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
-    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 
 ]
 
-
-#necessary for django allauth - this will call the id of the site we are using to be attached
-#to the emails we send out - eg th default is example.com
+# necessary for django allauth - this will call the id of
+# the site we are using to be attached
+# to the emails we send out - eg th default is example.com
 SITE_ID = 1
 
-#necessary for django allauth
+# necessary for django allauth
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -122,13 +97,13 @@ AUTHENTICATION_BACKENDS = (
 
 # necessary for django allauth
 # ACCOUNT_AUTHENTICATION_METHOD ="username" | "email" | "username_email"
-ACCOUNT_AUTHENTICATION_METHOD ="username_email"
-ACCOUNT_EMAIL_REQUIRED=True
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
-ACCOUNT_EMAIL_VERIFICATION ="mandatory"
-ACCOUNT_UNIQUE_EMAIL =True
-ACCOUNT_SIGNUP_PASSWORD_VERIFICATION =True
-LOGIN_REDIRECT_URL='/'
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = True
+LOGIN_REDIRECT_URL = '/'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -167,26 +142,27 @@ WSGI_APPLICATION = 'teachadvisor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-# # confidential
-# # localhost - need to install postgres under pip install and start a new database in the 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'db',
-#         'USER': 'admin',
-#         'PASSWORD': 'qwer1234',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
+'''
+# confidential
+# localhost - need to install postgres under pip install
+# and start a new database in the
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'db',
+        'USER': 'postgres',
+        'PASSWORD': 'mypass',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
@@ -222,36 +198,37 @@ USE_L10N = True
 USE_TZ = True
 
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-# start a folder such as the below(staticinpro/ourstatic) and dump all the static/image 
-# files inside and after running the collect static the system will dump all 
+# start a folder such as the below(staticinpro/ourstatic) and dump all the static/image
+# files inside and after running the collect static the system will dump all
 # staticinpro/ourstatic files into the static_in_env/static_root and media_root
 # after loading the files into staticinpro folder you dont need to run collectstatic
 # but you need to use {% load staticfiles %} and "{% static 'img/marketing1.jpg' %}"
 # to load the files
 STATICFILES_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR), "static_in_pro", "our_static"),
-    #os.path.join(BASE_DIR, "static_in_env"),
-    #'/var/www/static/',
+    # os.path.join(BASE_DIR, "static_in_env"),
+    # '/var/www/static/',
 )
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "static_root")
+STATIC_ROOT = os.path.join(os.path.dirname(
+    BASE_DIR), "static_in_env", "static_root")
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "media_root")
+MEDIA_ROOT = os.path.join(os.path.dirname(
+    BASE_DIR), "static_in_env", "media_root")
 
 # Protected has no url
-PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "protected_root")
+PROTECTED_ROOT = os.path.join(os.path.dirname(
+    BASE_DIR), "static_in_env", "protected_root")
 # print BASE_DIR
 
 
 # confidential
-#braintree payment details
+# braintree payment details
 BRAINTREE_PUBLIC = "2p6d25h7hnkmphkf"
 BRAINTREE_PRIVATE = "dfb25d2c59f9cbf58baed0b1484a7904"
 BRAINTREE_MERCHANT_ID = "366ymdm23r3gvjfh"
@@ -272,27 +249,27 @@ STRIPE_SECRET_KEY = "sk_test_LnI9cIZTnYsglGQa2UZdjZUj"
 
 SOCIALACCOUNT_PROVIDERS = \
     {'facebook':
-       {'METHOD': 'oauth2',
-        'SCOPE': ['email', 'public_profile', 'user_friends'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time'],
-        'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': lambda request: 'en_US}',
-        'VERIFIED_EMAIL': True,
-        'VERSION': 'v2.4'}}
+     {'METHOD': 'oauth2',
+      'SCOPE': ['email', 'public_profile', 'user_friends'],
+      'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+      'FIELDS': [
+          'id',
+          'email',
+          'name',
+          'first_name',
+          'last_name',
+          'verified',
+          'locale',
+          'timezone',
+          'link',
+          'gender',
+          'updated_time'],
+      'EXCHANGE_TOKEN': True,
+      'LOCALE_FUNC': lambda request: 'en_US}',
+      'VERIFIED_EMAIL': True,
+      'VERSION': 'v2.4'}}
 
 SOCIALACCOUNT_PROVIDERS = \
-    { 'google':
-        { 'SCOPE': ['profile', 'email'],
-          'AUTH_PARAMS': { 'access_type': 'online' } }}
+    {'google':
+        {'SCOPE': ['profile', 'email'],
+         'AUTH_PARAMS': {'access_type': 'online'}}}

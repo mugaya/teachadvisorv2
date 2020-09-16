@@ -6,7 +6,7 @@ from billing.models import Transaction, UserCredit, ImageSubscription, CreditToC
 
 
 class TransactionAdmin(admin.ModelAdmin):
-	list_display = ['user','credit','price','success']
+	list_display = ['__unicode__','user','credit','price','success']
 	inlines = [
 	]
 	class Meta:
@@ -14,7 +14,7 @@ class TransactionAdmin(admin.ModelAdmin):
 
 
 class UserCreditAdmin(admin.ModelAdmin):
-	list_display = ['credit']
+	list_display = ['__unicode__','credit']
 	inlines = [
 	]
 	class Meta:
@@ -22,51 +22,43 @@ class UserCreditAdmin(admin.ModelAdmin):
 
 
 class ImageSubscriptionAdmin(admin.ModelAdmin):
-	list_display = ['subenddate','updated']
+	list_display = ['__unicode__','subenddate','updated']
 	inlines = [
 	]
 	class Meta:
 		model = ImageSubscription
 
 class AnalyticsSubscriptionAdmin(admin.ModelAdmin):
-	list_display = ['subenddate','updated']
+	list_display = ['__unicode__','subenddate','updated']
 	inlines = [
 	]
 	class Meta:
 		model = AnalyticsSubscription
 
 class StudentBISubscriptionAdmin(admin.ModelAdmin):
-	list_display = ['subenddate','updated']
+	list_display = ['__unicode__','subenddate','updated']
 	inlines = [
 	]
 	class Meta:
 		model = StudentBISubscription
 
 class CreditToCashAdmin(admin.ModelAdmin):
-	list_display = ['credits','cashprice','discount']
+	list_display = ['__unicode__','credits','cashprice','discount']
 	inlines = [
 	]
 	class Meta:
 		model = CreditToCash
 
 
-# latest version of django
-# class PriceToDaysAdmin(admin.ModelAdmin):
-#     list_display = ('id','label','cashprice','daystoadd','subplan','discount','active')
-
-#     def __str__(self,obj):
-#         return obj.__str__()
-
-
 class FeaturedUser_0Admin(admin.ModelAdmin):
-	list_display = ['subenddate','user','updated']
+	list_display = ['__unicode__','subenddate','user','updated']
 	inlines = [
 	]
 	class Meta:
 		model = FeaturedUser_0
 
 class FeaturedUser_1Admin(admin.ModelAdmin):
-	list_display = ['subenddate','user','updated']
+	list_display = ['__unicode__','subenddate','user','updated']
 	inlines = [
 	]
 	class Meta:

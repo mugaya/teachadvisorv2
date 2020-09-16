@@ -61,8 +61,7 @@ class Order(models.Model):
 
 	# objects = OrderManager()
 
-
-	def __str__(self):
+	def __unicode__(self):
 		return str(self.oopening)
 
 	def get_order_opening(self):

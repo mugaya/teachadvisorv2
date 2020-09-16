@@ -64,8 +64,8 @@ class Student(models.Model):
 	def get_update(self):
 		return reverse('StudentUpdate', kwargs={'pk': self.pk})
 
-	def __str__(self):
-		return str(self.user.username)
+	def __unicode__(self):
+		return self.user.username
 
 	def test(self):
 		test = self.id

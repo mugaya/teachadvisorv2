@@ -54,7 +54,7 @@ def get_notifications_ajax(request):
 
 class MsgCountView(View):
 	def get(self, request, *args, **kwargs):
-		if request.user.is_authenticated:
+		if request.user.is_authenticated():
 			notifications = Notification.objects.all_for_user(request.user).recent()
 			count = notifications.count()
 			request.session["unread_count"] = count

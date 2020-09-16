@@ -38,5 +38,5 @@ class Opening(models.Model):
 		test = self.hiring_student.subject
 		return test
 
-	def __str__(self):
-		return str(self.title)
+	def __unicode__(self):
+		return self.title

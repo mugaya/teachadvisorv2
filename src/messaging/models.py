@@ -56,9 +56,8 @@ class Message(models.Model):
 
 	objects = MessageManager()
 
-
-	def __str__(self):
-		return str(self.title)
+	def __unicode__(self):
+		return self.title
 
 	def get_absolute_url(self):
 		return reverse("MessageDetail", kwargs={"pk":self.pk})

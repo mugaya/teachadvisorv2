@@ -169,10 +169,8 @@ class Teacher(models.Model):
 	doc6description = models.CharField(max_length=60, blank=True, null=True)
 
 
-	def __str__(self):
-		return str(self.user.username)
-
-
+	def __unicode__(self):
+		return self.user.username
 
 	def get_absolute_url(self):
 		return reverse('TeacherDetail', kwargs={'pk': self.pk})

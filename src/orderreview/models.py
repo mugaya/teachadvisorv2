@@ -37,9 +37,8 @@ class ReviewTeacher(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
 
-	def __str__(self):
+	def __unicode__(self):
 		return str(self.teacher)
-
 
 	def get_teacher_url(self):
 		teacher_id = self.teacher.id

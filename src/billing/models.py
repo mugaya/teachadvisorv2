@@ -18,17 +18,15 @@ class Transaction(models.Model):
 	# payment method
 	# last_four
 
-	def __str__(self):
-		return str(self.transaction_id)
+	def __unicode__(self):
+		return "%s" %(self.transaction_id)
 
 class UserCredit(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	credit = models.IntegerField(default=0)
 
-
-	def __str__(self):
-		return str(self.user)
-
+	def __unicode__(self):
+		return "%s" %(self.user)
 
 
 #where user can earn credits through sharing and verification.
@@ -42,8 +40,9 @@ class UserMicell(models.Model):
 	INSTfollow = models.BooleanField(default=False)
 	emailUnsub = models.BooleanField(default=False)
 
-	def __str__(self):
-		return str(self.user)
+	def __unicode__(self):
+		return "%s" %(self.user)
+
 
 
 class CreditToCash(models.Model):
@@ -52,9 +51,8 @@ class CreditToCash(models.Model):
 	credits = models.IntegerField(default=0)
 	discount = models.DecimalField(max_digits=100, decimal_places=2, default=0, null=True)
 
-	def __str__(self):
+	def __unicode__(self):
 		return str(self.label)
-
 
 class ImageSubscription(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -62,8 +60,8 @@ class ImageSubscription(models.Model):
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
-	def __str__(self):
-		return str(self.user)
+	def __unicode__(self):
+		return "%s" %(self.user)
 
 class AnalyticsSubscription(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -71,8 +69,8 @@ class AnalyticsSubscription(models.Model):
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
-	def __str__(self):
-		return str(self.user)
+	def __unicode__(self):
+		return "%s" %(self.user)
 
 class FeaturedUser_0(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
@@ -81,8 +79,8 @@ class FeaturedUser_0(models.Model):
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
-	def __str__(self):
-		return str(self.subject)
+	def __unicode__(self):
+		return "%s" %(self.subject)
 
 class FeaturedUser_1(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
@@ -91,8 +89,8 @@ class FeaturedUser_1(models.Model):
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
-	def __str__(self):
-		return str(self.subject)
+	def __unicode__(self):
+		return "%s" %(self.subject)
 
 class StudentBISubscription(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -100,17 +98,16 @@ class StudentBISubscription(models.Model):
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
-	def __str__(self):
-		return str(self.user)
+	def __unicode__(self):
+		return "%s" %(self.user)
 
 class UserCheckOut(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
 	# email = models.EmailField(unique=True)
 	braintree_id = models.CharField(max_length=120, null=True, blank=True)
 
-
-	def __str__(self):
-		return str(self.user.email)
+	def __unicode__(self):
+		return self.user.email
 
 	# def __init__(self, ):
 	# 	self.customer_id = self.get_braintree_id()
